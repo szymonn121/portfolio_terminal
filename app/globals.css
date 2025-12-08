@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --terminal-green: #00FF41;
+  --terminal-dim: #0F3D0F;
+  --terminal-dark: #000000;
+  --terminal-glow: rgba(0, 255, 65, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--terminal-dark);
+  color: var(--terminal-green);
+  font-family: 'VT323', 'Courier New', monospace;
+}
+
+body {
+  position: relative;
+}
+
+/* CRT Screen Curvature */
+.crt-screen {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 70%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Scanlines */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 50;
+  animation: scanline-move 8s linear infinite;
+}
+
+@keyframes scanline-move {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(10px);
+  }
+}
+
+/* Noise/Grain Effect */
+.grain {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 40;
+  animation: grain-move 0.5s steps(10) infinite;
+}
+
+@keyframes grain-move {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  20% {
+    transform: translate(-15%, 5%);
+  }
+  30% {
+    transform: translate(7%, -25%);
+  }
+  40% {
+    transform: translate(-5%, 25%);
+  }
+  50% {
+    transform: translate(-15%, 10%);
+  }
+  60% {
+    transform: translate(15%, 0%);
+  }
+  70% {
+    transform: translate(0%, 15%);
+  }
+  80% {
+    transform: translate(3%, 35%);
+  }
+  90% {
+    transform: translate(-10%, 10%);
+  }
+}
+
+/* Text Glow Effect */
+.text-glow {
+  text-shadow: 
+    0 0 5px var(--terminal-glow),
+    0 0 10px var(--terminal-glow),
+    0 0 20px var(--terminal-glow);
+}
+
+/* Focus Visible Outline */
+*:focus-visible {
+  outline: 2px solid var(--terminal-green);
+  outline-offset: 2px;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--terminal-dark);
+  border-left: 1px solid var(--terminal-dim);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--terminal-dim);
+  border: 1px solid var(--terminal-green);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--terminal-green);
+}
+
+/* Selection */
+::selection {
+  background: var(--terminal-green);
+  color: var(--terminal-dark);
+}
+
+/* Links */
+a {
+  color: var(--terminal-green);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  text-shadow: 0 0 10px var(--terminal-glow);
+}
+
+/* Buttons */
+button {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Typing Effect */
+.typing-effect {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end);
+}
+
+/* Blink Animation */
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Fade In */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* DOS Box Style */
+.dos-box {
+  border: 2px solid var(--terminal-green);
+  background: rgba(0, 255, 65, 0.02);
+  box-shadow: 
+    0 0 10px var(--terminal-glow),
+    inset 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+/* Progress Bar */
+.progress-bar {
+  background: var(--terminal-dim);
+  border: 1px solid var(--terminal-green);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  background: var(--terminal-green);
+  box-shadow: 0 0 10px var(--terminal-glow);
+  transition: width 1s ease-out;
+}

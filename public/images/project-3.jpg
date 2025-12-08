@@ -1,0 +1,13 @@
+<svg width="1200" height="675" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#000000"/>
+  <rect x="10" y="10" width="1180" height="655" fill="none" stroke="#00FF41" stroke-width="2"/>
+  <text x="600" y="300" font-family="monospace" font-size="48" fill="#00FF41" text-anchor="middle">
+    TASK MANAGEMENT
+  </text>
+  <text x="600" y="350" font-family="monospace" font-size="24" fill="#0F3D0F" text-anchor="middle">
+    [ PLACEHOLDER IMAGE ]
+  </text>
+  <text x="600" y="400" font-family="monospace" font-size="18" fill="#00FF41" text-anchor="middle">
+    Replace with your project screenshot
+  </text>
+</svg>
